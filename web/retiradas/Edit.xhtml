@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditRetiradasTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditRetiradasLabel_entrega}" for="entrega" />
+                    <h:inputText id="entrega" value="#{retiradasController.selected.entrega}" title="#{bundle.EditRetiradasTitle_entrega}" />
+                    <h:outputLabel value="#{bundle.EditRetiradasLabel_entregaFormatada}" for="entregaFormatada" />
+                    <h:inputText id="entregaFormatada" value="#{retiradasController.selected.entregaFormatada}" title="#{bundle.EditRetiradasTitle_entregaFormatada}" />
+                    <h:outputLabel value="#{bundle.EditRetiradasLabel_cliente}" for="cliente" />
+                    <h:inputText id="cliente" value="#{retiradasController.selected.cliente}" title="#{bundle.EditRetiradasTitle_cliente}" />
+                    <h:outputLabel value="#{bundle.EditRetiradasLabel_livro}" for="livro" />
+                    <h:inputText id="livro" value="#{retiradasController.selected.livro}" title="#{bundle.EditRetiradasTitle_livro}" />
+                    <h:outputLabel value="#{bundle.EditRetiradasLabel_retirada}" for="retirada" />
+                    <h:inputText id="retirada" value="#{retiradasController.selected.retirada}" title="#{bundle.EditRetiradasTitle_retirada}" />
+                    <h:outputLabel value="#{bundle.EditRetiradasLabel_devolvido}" for="devolvido" />
+                    <h:inputText id="devolvido" value="#{retiradasController.selected.devolvido}" title="#{bundle.EditRetiradasTitle_devolvido}" />
+                    <h:outputLabel value="#{bundle.EditRetiradasLabel_devolvidoFormatada}" for="devolvidoFormatada" />
+                    <h:inputText id="devolvidoFormatada" value="#{retiradasController.selected.devolvidoFormatada}" title="#{bundle.EditRetiradasTitle_devolvidoFormatada}" />
+                    <h:outputLabel value="#{bundle.EditRetiradasLabel_retiradaFormatada}" for="retiradaFormatada" />
+                    <h:inputText id="retiradaFormatada" value="#{retiradasController.selected.retiradaFormatada}" title="#{bundle.EditRetiradasTitle_retiradaFormatada}" />
+                    <h:outputLabel value="#{bundle.EditRetiradasLabel_livroDevolvido}" for="livroDevolvido" />
+                    <h:inputText id="livroDevolvido" value="#{retiradasController.selected.livroDevolvido}" title="#{bundle.EditRetiradasTitle_livroDevolvido}" />
+                    <h:outputLabel value="#{bundle.EditRetiradasLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{retiradasController.selected.id}" title="#{bundle.EditRetiradasTitle_id}" />
+                </h:panelGrid>
+                <h:commandLink action="#{retiradasController.update}" value="#{bundle.EditRetiradasSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditRetiradasViewLink}"/>
+                <br />
+                <h:commandLink action="#{retiradasController.prepareList}" value="#{bundle.EditRetiradasShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditRetiradasIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
