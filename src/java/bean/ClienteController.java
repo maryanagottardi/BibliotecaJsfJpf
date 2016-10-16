@@ -43,15 +43,15 @@ public class ClienteController implements Serializable {
     }
  public String novoCliente(){
         clienteSelecionado = new Cliente();
-        return("/formularioCadastroCliente");
+        return("/cadastroClientes");//conferir isto com o professor!
     }
   public String adicionarCliente(){
         clienteFacade.salvar(clienteSelecionado);
         return(this.novoCliente());
     }
-    public String editarLivro(Cliente l){
+    public String editarCliente(Cliente l){
         clienteSelecionado = l;
-        return("/formularioEditarCliente");        
+        return("/cadastroClientes");        
     }
      
     public void removerCliente(Cliente cliente){
@@ -61,6 +61,6 @@ public class ClienteController implements Serializable {
     
     public String atualizarCliente(){
         clienteFacade.salvar(clienteSelecionado);
-        return("/indexCliente");
+        return("/indexCliente");//ver com o professor
     }
 }
