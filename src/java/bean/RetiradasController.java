@@ -4,6 +4,7 @@ import model.Retiradas;
 import session.RetiradasFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -13,6 +14,8 @@ import javax.inject.Inject;
 @SessionScoped
 public class RetiradasController implements Serializable {
 
+   //CRUD
+    private List<Retiradas> listaRetiradas;
     private Retiradas retiradaSelecionada;
     @Inject
     private RetiradasFacade retiradaFacade;
@@ -24,7 +27,10 @@ public class RetiradasController implements Serializable {
     private int selectedItemIndex;
 */
     public RetiradasController() {
-          retiradaSelecionada = new Retiradas();
+        retiradaSelecionada = new Retiradas();
+        listaRetiradas = new ArrayList<Retiradas>();
+        listaRetiradas.add(new Retiradas("Beltrano", "Harry Potter I"));
+          
     }
  public Retiradas getRetiradaSelecionada() {
         return retiradaSelecionada;
@@ -40,7 +46,11 @@ public class RetiradasController implements Serializable {
 
       public String novaRetirada(){
         retiradaSelecionada = new Retiradas();
-        return("/formularioRetirada");
+         return("/admin/retirada?faces-redirect=true");
+    }
+        public String novaRetiradaUsuario(){
+        retiradaSelecionada=new Retiradas();
+        return("/usuario/retirada?faces-redirect=true");
     }
       
       public String adicionarRetirada(){
@@ -50,7 +60,7 @@ public class RetiradasController implements Serializable {
 
      public String editarRetirada(Retiradas r){
         retiradaSelecionada = r;
-        return("/formularioEdicaoRetirada");        
+         return("/admin/edicaoUsuarios?faces-redirect=true");       
     }
      
       public void removerRetirada(Retiradas retirada){
@@ -60,7 +70,7 @@ public class RetiradasController implements Serializable {
     
     public String atualizarRetirada(){
         retiradaFacade.salvar(retiradaSelecionada);
-        return("/index");
+         return("/admin/index?faces-redirect=true");
     }
    
 }

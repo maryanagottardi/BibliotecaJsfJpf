@@ -9,14 +9,14 @@
         <ui:composition template="/template.xhtml">
             <ui:define name="top"></ui:define>
             <ui:define name="content">
-                <div class="tituloUsuarios">Novo UsuÃ¡rio</div>
+                <div class="tituloUsuarios">Novo Usuário</div>
                 <div class="cadastro">
                     <h:form>
                         <h:panelGrid columns="2" >
                             <h:outputLabel for="idNome" value="Nome" style="font-weight: normal"/>
-                            <h:inputText id="idNome" required="true" requiredMessage="Erro! Campo 'Nome' vazio!" a:placeholder="Campo obrigatÃ³rio" style="width: 280px" styleClass="form-control" value="#{usuarioMB.usuarioSelecionado.nome}"  />
+                            <h:inputText id="idNome" required="true" requiredMessage="Erro! Campo 'Nome' vazio!" a:placeholder="Campo obrigatório" style="width: 280px" styleClass="form-control" value="#{usuarioMB.usuarioSelecionado.nome}"  />
                             <h:outputLabel for="idTelefone" value="Telefone" style="font-weight: normal"/>
-                            <h:inputText id="idTelefone" required="true" requiredMessage="Erro! Campo 'Telefone' vazio!" a:placeholder="Campo obrigatÃ³rio" style="width: 280px" styleClass="form-control" value="#{usuarioMB.usuarioSelecionado.telefone}" />
+                            <h:inputText id="idTelefone" required="true" requiredMessage="Erro! Campo 'Telefone' vazio!" a:placeholder="Campo obrigatório" style="width: 280px" styleClass="form-control" value="#{usuarioMB.usuarioSelecionado.telefone}" />
                             <h:outputLabel for="idEmail" value="Email" style="font-weight: normal"/>
                             <h:inputText id="idEmail" style="width: 280px" styleClass="form-control" value="#{usuarioMB.usuarioSelecionado.email}" />
                             <h:outputLabel for="idSexo" value="Sexo" style="font-weight: normal" />
@@ -33,9 +33,9 @@
                                 <f:selectItem itemLabel="Rio de Janeiro" itemValue="RJ" />
                             </h:selectOneMenu>
                             <h:outputLabel for="idLogin" value="Login" style="font-weight: normal"/>
-                            <h:inputText id="idLogin" required="true" requiredMessage="Erro! Campo 'Login' vazio!" a:placeholder="Campo obrigatÃ³rio" style="width: 280px" styleClass="form-control" value="#{usuarioMB.usuarioSelecionado.login}" />
+                            <h:inputText id="idLogin" required="true" requiredMessage="Erro! Campo 'Login' vazio!" a:placeholder="Campo obrigatório" style="width: 280px" styleClass="form-control" value="#{usuarioMB.usuarioSelecionado.login}" />
                             <h:outputLabel for="idSenha" value="Senha" style="font-weight: normal"/>
-                            <h:inputSecret id="idSenha" required="true" requiredMessage="Erro! Campo 'Senha' vazio!" a:placeholder="Campo obrigatÃ³rio" style="width: 280px" styleClass="form-control" value="#{usuarioMB.usuarioSelecionado.senha}" />
+                            <h:inputSecret id="idSenha" required="true" requiredMessage="Erro! Campo 'Senha' vazio!" a:placeholder="Campo obrigatório" style="width: 280px" styleClass="form-control" value="#{usuarioMB.usuarioSelecionado.senha}" />
                             <h:outputLabel for="idAdmin"  value="Acesso admin" style="font-weight: normal"/>
                             <h:selectBooleanCheckbox style="width: 60px" styleClass="checkbox" value="#{usuarioMB.usuarioSelecionado.admin}" />
                         </h:panelGrid>

@@ -1,35 +1,40 @@
 package bean;
 
 import model.Cliente;
-import bean.util.JsfUtil;
-import bean.util.PaginationHelper;
 import session.ClienteFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
-import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-import javax.faces.convert.FacesConverter;
-import javax.faces.model.DataModel;
-import javax.faces.model.ListDataModel;
-import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 
 @ManagedBean(name = "clienteController")
 @SessionScoped
 public class ClienteController implements Serializable {
-
+    //Crud
+    private List<Cliente> listaClientes;
     private Cliente clienteSelecionado;
+    private String matricula;
      @Inject
     private ClienteFacade clienteFacade;
+     
+      public String getMatricula() {
+        return matricula;
+    }
+
+    public void setMatricula(String matricula) {
+        this.matricula = matricula;
+    }
+
 
     public ClienteController() {
          clienteSelecionado = new Cliente();
+         
+        listaClientes = new ArrayList<>();
+        listaClientes.add(new Cliente("01", "Fulano", "3333-4544"));
+        listaClientes.add(new Cliente("02", "Beltrano", "3444-4545"));
     }
 
    public Cliente getClienteSelecionado() {
@@ -38,20 +43,28 @@ public class ClienteController implements Serializable {
   public void setClienteSelecionado(Cliente clienteSelecionado) {
         this.clienteSelecionado = clienteSelecionado;
     }
+  
  public List<Cliente> getListaCliente(){
         return clienteFacade.listar();
     }
+  
+  /*
+   public List<Cliente> getListaClientes() {
+        return listaClientes;
+    }
+ */
  public String novoCliente(){
         clienteSelecionado = new Cliente();
-        return("/cadastroClientes");//conferir isto com o professor!
+        return("/admin/cadastroClientes?faces-redirect=true");
     }
   public String adicionarCliente(){
         clienteFacade.salvar(clienteSelecionado);
-        return(this.novoCliente());
+   return("/admin/confirmaCadastroCliente?faces-redirect=true");       
+// return(this.novoCliente());
     }
     public String editarCliente(Cliente l){
         clienteSelecionado = l;
-        return("/cadastroClientes");        
+       return("/admin/edicaoClientes?faces-redirect=true");      
     }
      
     public void removerCliente(Cliente cliente){
@@ -61,6 +74,16 @@ public class ClienteController implements Serializable {
     
     public String atualizarCliente(){
         clienteFacade.salvar(clienteSelecionado);
-        return("/indexCliente");//ver com o professor
+         return("/admin/listaClientes?faces-redirect=true");
+    }
+    
+     public Cliente buscarCliente(String matricula) {
+        
+        for (Cliente cliente : listaClientes) {
+            if (cliente.getMatricula().equals(matricula)) {
+                return cliente;
+            }
+        }        
+        return null;
     }
 }
