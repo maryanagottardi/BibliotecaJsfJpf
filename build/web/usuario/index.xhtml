@@ -13,21 +13,21 @@
             <ui:define name="content">
                 <div class="logout">
                     <h:form>
-                        <h:commandLink value="Logout" action="#{loginMB.realizaLogout()}"/>                                   
+                        <h:commandLink value="Logout" action="#{loginController.realizaLogout()}"/>                                   
                     </h:form>
                 </div>
                 <div class="acessoADM">                    
-                    <h:outputText value="Seja bem vindo, #{loginMB.usuarioLogado.nome}"/>
+                    <h:outputText value="Seja bem vindo, #{loginController.usuarioLogado.nome}"/>
                     <br></br>Acesso Usuário
                 </div>
                 <div class="acessoUsuarioMenu">
                     <h:form>
                         <h:panelGrid columns="1" >
-                            <h:commandButton value="Editar Perfil" style="width: 200px; margin-top: 6px; box-shadow: 1px 1px 1px threeddarkshadow"  action="#{usuarioMB.editarPerfil(loginMB.usuarioLogado)}" styleClass="btn btn-primary"/>
+                            <h:commandButton value="Editar Perfil" style="width: 200px; margin-top: 6px; box-shadow: 1px 1px 1px threeddarkshadow"  action="#{usuarioController.editarPerfil(loginController.usuarioLogado)}" styleClass="btn btn-primary"/>
                             <p style="color: #269abc">_________________________</p>
-                            <h:commandButton value="Nova Retirada" style="width: 200px; margin-top: 6px; box-shadow: 1px 1px 1px threeddarkshadow" action="#{retiradasMB.novaRetiradaUsuario()}" styleClass="btn btn-primary"/>
-                            <h:commandButton value="Nova Devolução" style="width: 200px; margin-top: 6px; box-shadow: 1px 1px 1px threeddarkshadow" action="#{devolucaoMB.novaDevolucaoUsuario()}" styleClass="btn btn-primary"/>
-                            <h:commandButton value="Relatórios" style="width: 200px; margin-top: 6px; box-shadow: 1px 1px 1px threeddarkshadow" action="#{relatorioMB.mostrarRelatoriosUsuario()}" styleClass="btn btn-primary"/>
+                            <h:commandButton value="Nova Retirada" style="width: 200px; margin-top: 6px; box-shadow: 1px 1px 1px threeddarkshadow" action="#{retiradasController.novaRetiradaUsuario()}" styleClass="btn btn-primary"/>
+                            <h:commandButton value="Nova Devolução" style="width: 200px; margin-top: 6px; box-shadow: 1px 1px 1px threeddarkshadow" action="#{devolucaoController.novaDevolucaoUsuario()}" styleClass="btn btn-primary"/>
+                            <h:commandButton value="Relatórios" style="width: 200px; margin-top: 6px; box-shadow: 1px 1px 1px threeddarkshadow" action="#{relatorioController.mostrarRelatoriosUsuario()}" styleClass="btn btn-primary"/>
                         </h:panelGrid>                    
                     </h:form>
                 </div>

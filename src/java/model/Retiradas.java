@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package model;
 
 import java.text.DateFormat;
@@ -13,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import model.Cliente;
 import model.Livro;
 /**
@@ -25,8 +23,11 @@ public class Retiradas implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    @Temporal(TemporalType.TIMESTAMP)
     private Date retirada;    
+    @Temporal(TemporalType.TIMESTAMP)
     private Date devolvido;
+    @Temporal(TemporalType.TIMESTAMP)
     private Date entrega;
     private String cliente;
     private String livro;

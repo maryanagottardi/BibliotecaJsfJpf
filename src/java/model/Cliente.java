@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package model;
 
 import java.io.Serializable;
@@ -20,14 +16,20 @@ public class Cliente implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    
-    private Long id;
-    private String matricula, nome, telefone;
+    private Long matricula;
+    private String nome, telefone;
     private int retiradas, atrasos;
 
-     public Cliente() {        
+    public Long getMatricula() {
+        return matricula;
     }
-     
+
+    public void setMatricula(Long matricula) {
+        this.matricula = matricula;
+    }
+    
+    public Cliente() {        
+    }
     /**
      * Construtor para inicializar cliente
      *
@@ -36,40 +38,33 @@ public class Cliente implements Serializable {
      * @param telefone identifica telefone de uma pessoa.
      *
      */
-    public Cliente(String matricula, String nome, String telefone) {
-        this.matricula = matricula;
+    public Cliente(String nome, String telefone) {
         this.nome = nome;
         this.telefone = telefone;
     }   
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getMatricula() {
-        return matricula;
-    }
-
-    public void setMatricula(String matricula) {
-        this.matricula = matricula;
-    }
-
+    /**
+     * Retorna o nome
+     *
+     * @return nome de uma pessoa
+     */
     public String getNome() {
         return nome;
     }
-
+    
     public void setNome(String nome) {
         this.nome = nome;
     }
 
+    /**
+     * Retorna o telefone
+     *
+     * @return telefone de uma pessoa
+     */
     public String getTelefone() {
         return telefone;
     }
-
+    
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
@@ -90,46 +85,29 @@ public class Cliente implements Serializable {
         this.atrasos = atrasos;
     }
 
-    
-    
-    
-  @Override
+    @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 59 * hash + Objects.hashCode(this.matricula);
+        int hash = 0;
+        hash += (matricula != null ? matricula.hashCode() : 0);
         return hash;
     }
 
     @Override
-   
-    public boolean equals(Object obj) {
-        if (obj == null) {
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the matricula fields are not set
+        if (!(object instanceof Cliente)) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Cliente other = (Cliente) obj;
-        if (!Objects.equals(this.matricula, other.matricula)) {
+        Cliente other = (Cliente) object;
+        if ((this.matricula == null && other.matricula != null) || (this.matricula != null && !this.matricula.equals(other.matricula))) {
             return false;
         }
         return true;
     }
-    public boolean verificaCliente(String nome){
-        return(this.nome.equals(nome));
-    }
 
-
-     /**
-     * converte o objeto pessoa em String para mostrar suas informações
-     * corretamente.
-     *
-     * @return a matricula, o nome e o telefone de uma pessoa já formatado em
-     * String.
-     */
     @Override
     public String toString() {
-        return matricula + " - " + nome + ", " + telefone;
+        return "model.Cliente[ id=" + matricula + " ]";
     }
     
 }

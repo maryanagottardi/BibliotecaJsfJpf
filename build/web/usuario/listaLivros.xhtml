@@ -11,7 +11,7 @@
             <ui:define name="content">
                 <div class="tabelaUsuarios">
                     <h:form>
-                        <h:dataTable var="livro" value="#{livroMB.listaLivros}" styleClass="table table-striped" >
+                        <h:dataTable var="livro" value="#{livroController.listaLivro}" styleClass="table table-striped" >
                             <f:facet name="header">
                                 <h:outputText value="Lista de Livros" style="font-size: 20px" />
                             </f:facet>                            

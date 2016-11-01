@@ -23,7 +23,7 @@
             <ui:define name="content">
                   <div class="tabelaUsuarios">
            <h:form >
-            <h:dataTable var="usuario" value="#{usuarioMB.listaUsuarios}" styleClass="table table-striped" >
+               <h:dataTable var="usuario" value="#{usuarioController.listaUsuarios}" styleClass="table table-striped" >
                 <f:facet name="header">
                     <h:outputText value="Tabela de Usuarios" style="font-size: 20px" />
                 </f:facet>
@@ -74,9 +74,9 @@
                     <f:facet name="header">
                         <h:outputText value="Operacao" />
                     </f:facet>
-                        <h:commandLink value="Editar " action="#{usuarioMB.editarUsuario(usuario)}"/>
+                    <h:commandLink value="Editar " action="#{usuarioController.editarUsuario(usuario)}"/>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <h:commandLink value="Remover" action="#{usuarioMB.removerUsuario(usuario)}"/>
+                        <h:commandLink value="Remover" action="#{usuarioController.removerUsuario(usuario)}"/>
                 </h:column>
             </h:dataTable>
             </h:form>

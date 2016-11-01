@@ -4,7 +4,6 @@ import model.Cliente;
 import session.ClienteFacade;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -14,76 +13,65 @@ import javax.inject.Inject;
 @SessionScoped
 public class ClienteController implements Serializable {
     //Crud
-    private List<Cliente> listaClientes;
     private Cliente clienteSelecionado;
     private String matricula;
      @Inject
     private ClienteFacade clienteFacade;
      
-      public String getMatricula() {
+      public ClienteController() {
+         clienteSelecionado = new Cliente();
+      }
+     
+      public Cliente getClienteSelecionado() {
+        return clienteSelecionado;
+    }
+
+    public void setClienteSelecionado(Cliente usuarioSelecionado) {
+        this.clienteSelecionado = usuarioSelecionado;
+    }
+    
+    public String getMatricula() {
         return matricula;
     }
 
     public void setMatricula(String matricula) {
         this.matricula = matricula;
     }
-
-
-    public ClienteController() {
-         clienteSelecionado = new Cliente();
-         
-        listaClientes = new ArrayList<>();
-        listaClientes.add(new Cliente("01", "Fulano", "3333-4544"));
-        listaClientes.add(new Cliente("02", "Beltrano", "3444-4545"));
-    }
-
-   public Cliente getClienteSelecionado() {
-        return clienteSelecionado;
-    }
-  public void setClienteSelecionado(Cliente clienteSelecionado) {
-        this.clienteSelecionado = clienteSelecionado;
-    }
-  
- public List<Cliente> getListaCliente(){
+    
+    public List<Cliente> getListaClientes(){
         return clienteFacade.listar();
     }
-  
-  /*
-   public List<Cliente> getListaClientes() {
-        return listaClientes;
-    }
- */
- public String novoCliente(){
+    
+    public String novoCliente(){
         clienteSelecionado = new Cliente();
         return("/admin/cadastroClientes?faces-redirect=true");
     }
-  public String adicionarCliente(){
+    
+    public String adicionarCliente(){
         clienteFacade.salvar(clienteSelecionado);
-   return("/admin/confirmaCadastroCliente?faces-redirect=true");       
-// return(this.novoCliente());
+        this.novoCliente();
+        return("/admin/confirmaCadastroCliente?faces-redirect=true");
     }
-    public String editarCliente(Cliente l){
-        clienteSelecionado = l;
-       return("/admin/edicaoClientes?faces-redirect=true");      
+    
+    public String mostrarClientes(){        
+        return("/admin/listaClientes?faces-redirect=true");
     }
-     
-    public void removerCliente(Cliente cliente){
-        clienteFacade.remover(cliente);
+    
+    public String mostrarClientesUsuario(){        
+        return("/usuario/listaClientes?faces-redirect=true");
     }
-   
+    
+    public String editarCliente(Cliente c){
+        clienteSelecionado = c;
+        return("/admin/edicaoClientes?faces-redirect=true");        
+    }
     
     public String atualizarCliente(){
         clienteFacade.salvar(clienteSelecionado);
-         return("/admin/listaClientes?faces-redirect=true");
+        return("/admin/listaClientes?faces-redirect=true");
     }
     
-     public Cliente buscarCliente(String matricula) {
-        
-        for (Cliente cliente : listaClientes) {
-            if (cliente.getMatricula().equals(matricula)) {
-                return cliente;
-            }
-        }        
-        return null;
-    }
+    public void removerCliente(Cliente cliente){
+        clienteFacade.remover(cliente);
+    }    
 }

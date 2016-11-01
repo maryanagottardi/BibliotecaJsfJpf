@@ -16,7 +16,7 @@ import model.Cliente;
  */
 @Stateless
 public class ClienteFacade extends AbstractFacade<Cliente> {
-    @PersistenceContext(unitName = "BibliotecaJsfJpfPU")
+    @PersistenceContext(unitName = "BibliotecaPU")
     private EntityManager manager;
 
     @Override
@@ -27,12 +27,12 @@ public class ClienteFacade extends AbstractFacade<Cliente> {
     public ClienteFacade() {
         super(Cliente.class);
     }
-     public void salvar(Cliente c){
-        //validar parâmetros
-        if(c.getId()==null){
-            super.adicionar(c);
+      public void salvar(Cliente u){
+        //validar parãmetros
+        if(u.getMatricula()==null){
+            super.adicionar(u);
         }
         else
-            super.atualizar(c);
+            super.atualizar(u);
     }
 }

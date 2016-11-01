@@ -13,18 +13,18 @@
                     <h:form>
                         <h:panelGrid columns="2" >
                             <h:outputLabel for="idIsbn" value="Isbn" style="font-weight: normal"/>
-                            <h:inputText readonly="true" id="idIsbn" style="width: 280px; margin-left: 30px; margin-top: 6px" styleClass="form-control" value="#{livroMB.livroSelecionado.isbn}" />
+                            <h:inputText readonly="true" id="idIsbn" style="width: 280px; margin-left: 30px; margin-top: 6px" styleClass="form-control" value="#{livroController.livroSelecionado.isbn}" />
                             <h:outputLabel for="idTitulo" value="Titulo" style="font-weight: normal"/>
-                            <h:inputText id="idTitulo" style="width: 280px; margin-left: 30px; margin-top: 6px" styleClass="form-control" value="#{livroMB.livroSelecionado.nome}"  />
+                            <h:inputText id="idTitulo" style="width: 280px; margin-left: 30px; margin-top: 6px" styleClass="form-control" value="#{livroController.livroSelecionado.nome}"  />
                             <h:outputLabel for="idAutor" value="Autor" style="font-weight: normal"/>
-                            <h:inputText id="idAutor" style="width: 280px; margin-left: 30px; margin-top: 6px" styleClass="form-control" value="#{livroMB.livroSelecionado.autor}" />
+                            <h:inputText id="idAutor" style="width: 280px; margin-left: 30px; margin-top: 6px" styleClass="form-control" value="#{livroController.livroSelecionado.autor}" />
                             <h:outputLabel for="idEditora" value="Editora" style="font-weight: normal"/>
-                            <h:inputText id="idEditora" style="width: 280px; margin-left: 30px; margin-top: 6px" styleClass="form-control" value="#{livroMB.livroSelecionado.editora}"  />
+                            <h:inputText id="idEditora" style="width: 280px; margin-left: 30px; margin-top: 6px" styleClass="form-control" value="#{livroController.livroSelecionado.editora}"  />
                             <h:outputLabel for="idAno" value="Ano" style="font-weight: normal"/>
-                            <h:inputText id="idAno" style="width: 280px; margin-left: 30px; margin-top: 6px" styleClass="form-control" value="#{livroMB.livroSelecionado.ano}" />
+                            <h:inputText id="idAno" style="width: 280px; margin-left: 30px; margin-top: 6px" styleClass="form-control" value="#{livroController.livroSelecionado.ano}" />
                         </h:panelGrid>
                         <div class="botaoCadastroClientes">
-                            <h:commandButton value="Confirmar" onclick="funcaoConfirmarCadastro()" style="width: auto; " styleClass="btn btn-primary" action="#{livroMB.atualizarLivro()}"/>
+                            <h:commandButton value="Confirmar" onclick="funcaoConfirmarCadastro()" style="width: auto; " styleClass="btn btn-primary" action="#{livroController.atualizarLivro()}"/>
                             <h:button value="Voltar" style="width: auto; margin-left: 5px" styleClass="btn btn-primary" outcome="/admin/listaLivros"/>
                         </div>
                     </h:form>

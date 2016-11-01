@@ -22,26 +22,9 @@ public class Livro implements Serializable {
     private Long id;
     private static int CODIGO_GERADO = 1;
     private String isbn, nome, autor, editora, ano;
+    //private Date ano;
     private int retiradas;
 
- public Livro(String isbn, String nome, String autor, String editora, String ano) {
-        this.isbn = isbn;
-        this.nome = nome;
-        this.autor = autor;
-        this.editora = editora;        
-        this.ano = ano;
-    }
-  public Livro(String nome, String autor, String editora, String ano) {
-        this.nome = nome;
-        this.autor = autor;
-        this.editora = editora;        
-        this.ano = ano;
-    }
-  
-    public Livro() {
-        
-    }
- 
     public Long getId() {
         return id;
     }
@@ -49,64 +32,127 @@ public class Livro implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    public static int getCODIGO_GERADO() {
-        return CODIGO_GERADO;
-    }
-
-    public static void setCODIGO_GERADO(int CODIGO_GERADO) {
-        Livro.CODIGO_GERADO = CODIGO_GERADO;
+    
+    /**
+     * Construtor para inicializar cliente
+     *
+     * @param matricula identifica a matrÃ­cula de uma pessoa.
+     * @param nome identifica o nome de uma pessoa.
+     * @param telefone identifica telefone de uma pessoa.
+     *
+     */
+    /**
+     * Construtor para inicializar livro
+     *
+     * @param isbn identifica o ISBN de um livro.
+     * @param nome identifica o nome de um livro.
+     * @param autor identifica o autor de um livro.
+     * @param editora identifica a editora de um livro.
+     * @param ano identifica o ano de publicaÃ§Ã£o de um livro.
+     *
+     */
+    
+    
+    public Livro(String isbn, String nome, String autor, String editora, String ano) {
+        this.isbn = isbn;
+        this.nome = nome;
+        this.autor = autor;
+        this.editora = editora;        
+        this.ano = ano;
     }
     
-     private int generateCodigo() {
-        return (CODIGO_GERADO++);
+    public Livro(String nome, String autor, String editora, String ano) {
+        this.nome = nome;
+        this.autor = autor;
+        this.editora = editora;        
+        this.ano = ano;
+    }
+    
+    public Livro() {
+        
     }
 
-    public String getIsbn() {
-        return isbn;
+    /**
+     * Retorna cÃ³digo do menu
+     *
+     * @return um cÃ³digo EstÃ¡tico para o menu de opÃ§Ãµes
+     */
+    public static int getCODIGO_GERADO() {
+        return CODIGO_GERADO;
     }
 
     public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
 
-    public String getNome() {
-        return nome;
-    }
-
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public String getAutor() {
-        return autor;
     }
 
     public void setAutor(String autor) {
         this.autor = autor;
     }
 
-    public String getEditora() {
-        return editora;
-    }
-
     public void setEditora(String editora) {
         this.editora = editora;
     }
 
+    public void setAno(String ano) {
+        this.ano = ano;
+    }
+
+    /**
+     * Retorna o nome
+     *
+     * @return nome de um livro
+     */
+    public String getNome() {
+        return nome;
+    }
+
+    /**
+     * Retorna o autor
+     *
+     * @return o autor de um livro
+     */
+    public String getAutor() {
+        return autor;
+    }
+
+    /**
+     * Retorna a editora
+     *
+     * @return a editora de um livro
+     */
+    public String getEditora() {
+        return editora;
+    }
+
+    /**
+     * Retorna a matrÃ­cula
+     *
+     * @return matrÃ­cula de uma pessoa
+     */
+    public String getIsbn() {
+        return isbn;
+    }
+
+    /**
+     * Retorna o ISBN
+     *
+     * @return o ISBN de um livro
+     */
     public String getAno() {
         return ano;
     }
 
-    public void setAno(String ano) {
-        this.ano = ano;
+    /**
+     * Retorna adiÃ§Ã£o ao cÃ³digo gerado
+     *
+     * @return o incremento do cÃ³digo gerado para o menu
+     */
+    private int generateCodigo() {
+        return (CODIGO_GERADO++);
     }
 
     public int getRetiradas() {
@@ -117,7 +163,12 @@ public class Livro implements Serializable {
         this.retiradas = retiradas;
     }
 
-    
+    @Override
+    public String toString() {
+        return "Livro{" + "isbn=" + isbn + ", nome=" + nome + ", autor=" + autor + ", editora=" + editora + ", ano=" + ano + '}';
+    }
+
+
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -131,9 +182,4 @@ public class Livro implements Serializable {
         return true;
     }
 
-    @Override
-     public String toString() {
-        return "Livro{" + "isbn=" + isbn + ", nome=" + nome + ", autor=" + autor + ", editora=" + editora + ", ano=" + ano + '}';
-    }
-    
 }

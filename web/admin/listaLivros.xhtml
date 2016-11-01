@@ -11,7 +11,7 @@
             <ui:define name="content">
                 <div class="tabelaUsuarios">
                     <h:form>
-                        <h:dataTable var="livro" value="#{livroMB.listaLivros}" styleClass="table table-striped" >
+                        <h:dataTable var="livro" value="#{livroController.listaLivro}" styleClass="table table-striped" >
                             <f:facet name="header">
                                 <h:outputText value="Lista de Livros" style="font-size: 20px" />
                             </f:facet>                            
@@ -49,9 +49,9 @@
                                 <f:facet name="header">
                                     <h:outputText value="Operacao" style="padding-left: 0" />
                                 </f:facet>
-                                <h:commandLink value="Editar " action="#{livroMB.editarLivro(livro)}"/>
+                                <h:commandLink value="Editar " action="#{livroController.editarLivro(livro)}"/>
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <h:commandLink onclick="funcaoDeletarUsuario()" id="remover" value="Remover" action="#{livroMB.removerLivro(livro)}"/>
+                                <h:commandLink onclick="funcaoDeletarUsuario()" id="remover" value="Remover" action="#{livroController.removerLivro(livro)}"/>
                             </h:column>
                         </h:dataTable>
                         <h:button value="Voltar" style="align: right; width: 120px; margin-right: 5px" styleClass="btn btn-primary" outcome="/admin/relatorios"/>

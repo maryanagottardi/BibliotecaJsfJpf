@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package session;
 
 import javax.ejb.Stateless;
@@ -16,7 +12,7 @@ import model.Livro;
  */
 @Stateless
 public class LivroFacade extends AbstractFacade<Livro> {
-    @PersistenceContext(unitName = "BibliotecaJsfJpfPU")
+    @PersistenceContext(unitName = "BibliotecaPU")
     private EntityManager manager;
 
     @Override
