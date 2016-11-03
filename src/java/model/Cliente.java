@@ -6,13 +6,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.util.Objects;
+
 /**
  *
  * @author mari
  */
 @Entity
 public class Cliente implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -32,11 +33,7 @@ public class Cliente implements Serializable {
     }
     /**
      * Construtor para inicializar cliente
-     *
-     * @param matricula identifica a matrícula de uma pessoa.
-     * @param nome identifica o nome de uma pessoa.
-     * @param telefone identifica telefone de uma pessoa.
-     *
+   
      */
     public Cliente(String nome, String telefone) {
         this.nome = nome;
@@ -45,8 +42,7 @@ public class Cliente implements Serializable {
 
     /**
      * Retorna o nome
-     *
-     * @return nome de uma pessoa
+     
      */
     public String getNome() {
         return nome;
@@ -58,8 +54,7 @@ public class Cliente implements Serializable {
 
     /**
      * Retorna o telefone
-     *
-     * @return telefone de uma pessoa
+    
      */
     public String getTelefone() {
         return telefone;
@@ -94,7 +89,7 @@ public class Cliente implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the matricula fields are not set
+        
         if (!(object instanceof Cliente)) {
             return false;
         }

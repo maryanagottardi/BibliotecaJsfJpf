@@ -4,7 +4,6 @@ import model.Livro;
 import session.LivroFacade;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -13,57 +12,74 @@ import javax.inject.Inject;
 @ManagedBean(name = "livroController")
 @SessionScoped
 public class LivroController implements Serializable {
-    //crud
-    private List<Livro> listaLivros;
-    private Livro livroSelecionado;
+  private Livro livroSelecionado;
+    private String id;
     @Inject
     private LivroFacade livroFacade;
 
     public LivroController() {
         livroSelecionado = new Livro();
-        listaLivros = new ArrayList<Livro>();
-        listaLivros.add(new Livro("1", "Harry Potter I", "JK", "asd", "1995"));
-        listaLivros.add(new Livro("2", "Harry Potter II", "JK", "asd", "1999"));
     }
- public Livro getLivroSelecionado() {
+
+    public Livro getLivroSelecionado() {
         return livroSelecionado;
     }
-  public void setLivroSelecionado(Livro livroSelecionado) {
-        this.livroSelecionado = livroSelecionado;
+
+    public void setLivroSelecionado(Livro usuarioSelecionado) {
+        this.livroSelecionado = usuarioSelecionado;
     }
- public List<Livro> getListaLivro(){
+    
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+    
+    public List<Livro> getListaLivros(){
         return livroFacade.listar();
     }
- public String novoLivro(){
+    
+    public String novoLivro(){
         livroSelecionado = new Livro();
         return("/admin/cadastroLivros?faces-redirect=true");
     }
-  public String adicionarLivro(){
+    
+    public String adicionarLivro(){
         livroFacade.salvar(livroSelecionado);
+        this.novoLivro();
         return("/admin/confirmaCadastroLivro?faces-redirect=true");
-       // return(this.novoLivro());
     }
-   public String mostrarLivros(){        
+    
+    public String mostrarLivros(){        
         return("/admin/listaLivros?faces-redirect=true");
     }
     
     public String mostrarLivrosUsuario(){        
         return("/usuario/listaLivros?faces-redirect=true");
     }
-   public String editarLivro(Livro l){
-        livroSelecionado = l;
+    
+    public String editarLivro(Livro c){
+        livroSelecionado = c;
         return("/admin/edicaoLivros?faces-redirect=true");        
     }
-     
-      public void removerLivro(Livro livro){
-        livroFacade.remover(livro);
-    }
-   
     
     public String atualizarLivro(){
         livroFacade.salvar(livroSelecionado);
-          return("/admin/listaLivros?faces-redirect=true");
+        return("/admin/listaLivros?faces-redirect=true");
     }
-  
-  
+    
+    public void removerLivro(Livro livro){
+        livroFacade.remover(livro);
+    }    
+    
+    public Livro buscarLivroPorNome(String nome){
+        for(Livro l: getListaLivros())
+            if(l.getNome().equals(nome))
+                return l;
+        return null;
+    }
+    
+   
 }

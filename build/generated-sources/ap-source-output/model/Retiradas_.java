@@ -4,17 +4,17 @@ import java.util.Date;
 import javax.annotation.Generated;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
+import model.Cliente;
+import model.Livro;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2016-10-30T14:46:08")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2016-11-03T13:25:28")
 @StaticMetamodel(Retiradas.class)
 public class Retiradas_ { 
 
-    public static volatile SingularAttribute<Retiradas, String> cliente;
-    public static volatile SingularAttribute<Retiradas, Date> devolvido;
-    public static volatile SingularAttribute<Retiradas, String> livro;
-    public static volatile SingularAttribute<Retiradas, Date> entrega;
+    public static volatile SingularAttribute<Retiradas, Cliente> cliente;
+    public static volatile SingularAttribute<Retiradas, Livro> livro;
+    public static volatile SingularAttribute<Retiradas, Date> dataRetirada;
     public static volatile SingularAttribute<Retiradas, Long> id;
-    public static volatile SingularAttribute<Retiradas, Boolean> livroDevolvido;
-    public static volatile SingularAttribute<Retiradas, Date> retirada;
+    public static volatile SingularAttribute<Retiradas, Date> dataDevolucao;
 
 }

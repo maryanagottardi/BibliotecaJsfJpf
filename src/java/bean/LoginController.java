@@ -21,10 +21,11 @@ import session.UsuarioFacade;
 public class LoginController implements Serializable {
    
   //  private Usuario usuarioSelecionado;
-    @Inject
+    
     private String login, senha;
     private Usuario usuarioLogado;
-    UsuarioController usuarioController;
+    
+    @Inject
     private UsuarioFacade usuarioFacade;
    // private DataModel items = null;
   /* @EJB
@@ -70,7 +71,7 @@ public class LoginController implements Serializable {
         //Obtém o usuarioMB criado pelo servidor (nível de aplicação)
         //UsuarioMB usuarioMB = (UsuarioMB) contexto.getExternalContext().getApplicationMap().get("usuarioMB");
         //A partir do usuarioMB do servidor, pegamos a lista de usuários cadastrados no sistema
-        List<Usuario> listaUsuarios = usuarioController.getListaUsuarios();
+        List<Usuario> listaUsuarios = usuarioFacade.listar();
 
         for (Usuario usuario : listaUsuarios) {
             if (usuario.verificaLogin(login, senha)) {

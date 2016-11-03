@@ -23,12 +23,12 @@ public class RetiradasFacade extends AbstractFacade<Retiradas> {
     public RetiradasFacade() {
         super(Retiradas.class);
     }
-    public void salvar(Retiradas r){
-        //validar parâmetros
-        if(r.getRetirada()==null){
-            super.adicionar(r);
+     public void salvar(Retiradas l){
+        //validar parÃ¢metros
+        if(l.getId()==null){
+            super.adicionar(l);
         }
         else
-            super.atualizar(r);
+            super.atualizar(l);
     }
 }

@@ -24,7 +24,8 @@ public class Livro implements Serializable {
     private String isbn, nome, autor, editora, ano;
     //private Date ano;
     private int retiradas;
-
+    private boolean disponivel = true;  
+    
     public Long getId() {
         return id;
     }
@@ -72,11 +73,7 @@ public class Livro implements Serializable {
         
     }
 
-    /**
-     * Retorna cÃ³digo do menu
-     *
-     * @return um cÃ³digo EstÃ¡tico para o menu de opÃ§Ãµes
-     */
+   
     public static int getCODIGO_GERADO() {
         return CODIGO_GERADO;
     }
@@ -146,11 +143,13 @@ public class Livro implements Serializable {
         return ano;
     }
 
-    /**
-     * Retorna adiÃ§Ã£o ao cÃ³digo gerado
-     *
-     * @return o incremento do cÃ³digo gerado para o menu
-     */
+    public boolean isDisponivel() {
+        return disponivel;
+    }
+
+    public void setDisponivel(boolean disponivel) {
+        this.disponivel = disponivel;
+    }
     private int generateCodigo() {
         return (CODIGO_GERADO++);
     }

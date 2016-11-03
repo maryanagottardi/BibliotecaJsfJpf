@@ -15,12 +15,6 @@ import session.RetiradasFacade;
  *
  * @author mari
  */
-
-
-/**
- *
- * @author mari
- */
 @ManagedBean(name = "devolucaoController")
 @SessionScoped
 public class DevolucaoController implements Serializable {
@@ -35,7 +29,7 @@ public class DevolucaoController implements Serializable {
     public DevolucaoController() {
         retiradaSelecionada = new Retiradas();
         listaRetiradas = new ArrayList<Retiradas>();
-        listaRetiradas.add(new Retiradas("Beltrano", "Harry Potter I"));
+       // listaRetiradas.add(new Retiradas("Beltrano", "Harry Potter I"));
         
     }
 
