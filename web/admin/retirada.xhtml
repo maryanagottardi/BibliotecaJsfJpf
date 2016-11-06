@@ -5,60 +5,75 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <meta charset="utf-8"></meta>
+    </h:head>
     <h:body>
         <ui:composition template="/template.xhtml">
             <ui:define name="top"></ui:define>
             <ui:define name="content">
-                <div class="tabelaUsuarios">                    
-                    <h:form  >
-                        <h:selectOneMenu value="#{clienteController.clienteSelecionado}" styleClass="btn btn-default"> 
-                            <f:selectItem itemLabel="Selecione o Cliente" noSelectionOption="true"/> 
-                            <f:selectItems 
-                                value="#{clienteController.listaClientes}" 
-                                var="cliente" 
-                                itemValue="#{cliente.nome}" 
-                                itemLabel="#{cliente.nome}" /> 
-                        </h:selectOneMenu>
-                        <h:selectOneMenu value="#{livroController.livroSelecionado}" style="margin: 10px" styleClass="btn btn-default"> 
-                            <f:selectItem itemLabel="Selecione o Livro" noSelectionOption="true"/> 
-                            <f:selectItems 
-                                value="#{livroController.listaLivros}" 
-                                var="livro" 
-                                itemValue="#{livro.nome}" 
-                                itemLabel="#{livro.nome}" /> 
-                        </h:selectOneMenu>
-                        <h:commandButton value="Confirmar" onclick="funcaoConfirmarCadastro()" style="width: auto; " styleClass="btn btn-primary" action="#{retiradasController.adicionarRetirada()}"/>
-
-                        <h:dataTable var="retiradas" value="#{retiradasController.listaRetiradas}" styleClass="table table-striped" >
-                            <f:facet name="header">
-
-                                <h:outputText value="Nova Retirada" style="font-size: 20px" />
-                            </f:facet>
-
-                            <h:column>
+                <div class="tabelaRetirada"> 
+                    <h:form>
+                        <div class="cadastroRetirada">
+                            <div class="tituloRetirada">Nova Retirada</div>
+                            <h:panelGrid columns="5" style="margin-left: 7px; margin-top: 29px;" >
+                                <h:outputLabel for="idMatricula" value="Buscar Cliente" style="font-weight: normal"/>
+                                <h:inputText id="idMatricula" style="width: 190px; margin-left: 20px" styleClass="form-control" required="true"  requiredMessage="Erro! Campo 'Matrícula' vazio!" a:placeholder="Digite a Matrícula"  value="#{retiradasController.matriculaCliente}" />
+                                <h:outputLabel  for="idLivro"/>
+                                <h:selectOneMenu value="#{retiradasController.livroSelecionado}" id="idLivro" styleClass="btn btn-primary" style="margin-left: 60px; width: 300px" required="true" requiredMessage="Erro! Selecione um livro disponível!">
+                                    <f:selectItem itemLabel="Selecione um Livro disponível" noSelectionOption="true"  />
+                                    <f:selectItems value="#{retiradasController.livrosDisponiveis}" 
+                                                   var="livro" itemValue="#{livro}"
+                                                   itemLabel="#{livro.nome}"/>
+                                </h:selectOneMenu>
+                                <h:commandButton value="Pesquisar" style="width: auto; margin-left: 45px" styleClass="btn btn-primary" action="#{retiradasController.adicionarPesquisa()}"/>
+                            </h:panelGrid>
+                        </div>
+                        <div class="alertaRetirada">
+                            <h:messages id="MensagemRet" showDetail="tue" errorClass="mensagemRet" styleClass= "alert alert-danger"/>
+                        </div>
+                        <div class="tabelaRetiradaPesquisa">
+                            <h:dataTable var="pesquisa" value="#{retiradasController.pesquisa}" styleClass="table table-striped" >
                                 <f:facet name="header">
-                                    <h:outputText value="Cliente" />
+                                    <h:outputText value="Confirmar Retirada" style="font-size: 18px; padding-left: 12px" />
                                 </f:facet>
-                                <h:outputText id="idCliente" value="#{retiradas.cliente}" />
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Titulo" />
-                                </f:facet>
-                                <h:outputText id="idTitulo" value="#{retiradas.livro}"  />
-                            </h:column>
-
-                            <h:column >
-                                <f:facet name="header">
-                                    <h:outputText value="Operacao" />
-                                </f:facet>
-                                <h:commandLink value="Editar " action="#{clienteController.editarCliente(cliente)}"/>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <h:commandLink onclick="funcaoDeletarUsuario()" id="remover" value="Remover" action="#{clienteController.removerCliente(cliente)}"/>
-                            </h:column>
-                        </h:dataTable>
-                        <h:button value="Voltar" style="align: right; width: 120px; margin-right: 5px" styleClass="btn btn-primary" outcome="/admin/index"/>
-                    </h:form>                      
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Cliente" />
+                                    </f:facet>
+                                    <h:outputText id="idCliente" value="#{pesquisa.cliente.nome}" />
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Título" />
+                                    </f:facet>
+                                    <h:outputText id="idTitulo" value="#{pesquisa.livro.nome}"  />
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Data Retirada" />
+                                    </f:facet>
+                                    <h:outputText id="idDataret" value="#{retiradasController.formataData(pesquisa.dataRetirada)}"  />
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Data devolução" />
+                                    </f:facet>                                
+                                    <h:outputText id="idDatadev" value="#{retiradasController.formataData(pesquisa.dataDevolucao)}"  />
+                                </h:column>
+                                <h:column>
+                                    <h:commandButton id="limpar" value="Limpar pesquisa" style="align: right; margin-right: -57px;" styleClass="btn btn-danger" action="#{retiradasController.limparPesquisa(pesquisa)}"/>
+                                </h:column>
+                            </h:dataTable>                              
+                        </div>
+                        <div class="tabelaRetiradaPesquisaCentro">                            
+                            <h:button value="Voltar" style="align: right; width: 120px; margin-left: 650px; margin-right: 5px" styleClass="btn btn-primary" outcome="/admin/index"/>
+                            <h:commandButton value="Confirmar" style="width: 120px; align: right; " styleClass="btn btn-primary" action="#{retiradasController.adicionarRetirada()}"/>
+                        </div>
+                        <div class="tabelaRetiradaPesquisaTexto"> 
+                            <p>*Para concluir o empréstimo, é necessário confirmar os dados clicando no botão "Pesquisar".</p>
+                        </div>
+                    </h:form>
                 </div>
             </ui:define>
         </ui:composition>

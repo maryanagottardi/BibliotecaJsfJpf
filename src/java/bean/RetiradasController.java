@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import model.Cliente;
@@ -19,27 +21,35 @@ import static Util.DateUtil.dateToString;
 @ApplicationScoped
 public class RetiradasController implements Serializable {
 
-   //CRUD
     @Inject
     RetiradasFacade retiradaFacade;
     @Inject
     LivroFacade livroFacade;
     @Inject
     ClienteFacade clienteFacade;
-   // @Inject
-   // ClienteController clienteController;
-   // @Inject
-   // LivroController livroController;
+    @Inject
+    ClienteController clienteController;
+    @Inject
+    LivroController livroController;
     private long id;
     private long matriculaCliente;
-    private long idLivro;
+    private long idLivro; 
     private String dtFormatada;
     private Livro livroSelecionado;
+    long DAY_IN_MS = 1000 * 60 * 60 * 24;
+    Date periodoEmprestimo = new Date(System.currentTimeMillis() + 7 * DAY_IN_MS); // uma semana
+    private Date dataLiberacao = new Date(System.currentTimeMillis() + 8 * DAY_IN_MS); //prazo que o livro ficará disponível novamente
+    Date dataAtual = new Date(System.currentTimeMillis());
 
+    //CRUD
     private List<Retiradas> listaRetiradas;
+    private List<Retiradas> pesquisa;
     private Retiradas retiradaSelecionada;
-    
-     public RetiradasController() {
+    private Retiradas pesquisaSelecionada;
+
+    public RetiradasController() {
+        pesquisa = new ArrayList<>();
+        pesquisaSelecionada = new Retiradas();
         retiradaSelecionada = new Retiradas();
         livroSelecionado = new Livro();
 
@@ -84,7 +94,7 @@ public class RetiradasController implements Serializable {
     public void setLivroSelecionado(Livro livroSelecionado) {
         this.livroSelecionado = livroSelecionado;
     }
-    
+
     public Retiradas getRetiradaSelecionada() {
         return retiradaSelecionada;
     }
@@ -97,56 +107,154 @@ public class RetiradasController implements Serializable {
         return retiradaFacade.listar();
     }
 
+    public List<Retiradas> getPesquisa() {
+        return pesquisa;
+    }
+
+    public void setPesquisa(List<Retiradas> pesquisa) {
+        this.pesquisa = pesquisa;
+    }
+
+    public Retiradas getPesquisaSelecionada() {
+        return pesquisaSelecionada;
+    }
+
+    public void setPesquisaSelecionada(Retiradas pesquisaSelecionada) {
+        this.pesquisaSelecionada = pesquisaSelecionada;
+    }    
+
+    public Date getDataLiberacao() {
+        return dataLiberacao;
+    }
+
+    public void setDataLiberacao(Date dataLiberacao) {
+        this.dataLiberacao = dataLiberacao;
+    }
+
     public String novaRetirada() {
         retiradaSelecionada = new Retiradas();
-        return ("/admin/retirada?faces-redirect=true");
+        return ("/admin/retiradas/retirada?faces-redirect=true");
     }
 
     public String novaRetiradaUsuario() {
         retiradaSelecionada = new Retiradas();
-        return ("/usuario/retirada?faces-redirect=true");
+        return ("/usuario/retiradas/retirada?faces-redirect=true");
+    }
+    
+    public String adicionarPesquisa() {
+        FacesContext contexto = FacesContext.getCurrentInstance();
+        Livro l = this.livroSelecionado;
+        Cliente c = buscaClienteMat(this.getMatriculaCliente());
+        if (c != null) {
+            pesquisaSelecionada.setCliente(c);
+            pesquisaSelecionada.setLivro(l);
+            pesquisaSelecionada.setDataRetirada(dataAtual);
+            pesquisaSelecionada.setDataDevolucao(periodoEmprestimo);
+            pesquisa.add(pesquisaSelecionada);
+            return (this.novaRetirada());
+        }else{
+            FacesMessage mensagemRet = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                "Erro!", "Cliente não encontrado!");
+            contexto.addMessage("idMensagem", mensagemRet);
+        }
+        return ("/admin/retiradas/validacaoCiente?faces-redirect=true");        
+    }
+    
+    public String adicionarPesquisaUsuario() {
+        Livro l = this.livroSelecionado;
+        Cliente c = buscaClienteMat(this.getMatriculaCliente());
+        pesquisaSelecionada.setCliente(c);
+        pesquisaSelecionada.setLivro(l);
+        pesquisaSelecionada.setDataRetirada(dataAtual);
+        pesquisaSelecionada.setDataDevolucao(periodoEmprestimo);
+        pesquisa.add(pesquisaSelecionada);
+        return (this.novaRetiradaUsuario());
+    }
+
+    public void limparPesquisa(Retiradas r) {
+        pesquisa.remove(r);
     }
 
     public String adicionarRetirada() {
-        Livro l = this.livroSelecionado;
-        Cliente c = buscaClienteMatricula(this.getMatriculaCliente());
-        l.setDisponivel(false);
-        l.setRetiradas(l.getRetiradas()+1);
-        retiradaSelecionada.setCliente(c);
-        retiradaSelecionada.setLivro(l);
-        retiradaSelecionada.setDataRetirada(new Date(System.currentTimeMillis()));
-        retiradaSelecionada.setDataDevolucao(new Date(System.currentTimeMillis() + (7 * (1000 * 60 * 60 * 24))));
-        livroFacade.salvar(l);
-        retiradaFacade.salvar(retiradaSelecionada);
-        return (this.novaRetirada());
-    }    
-   
-    public Cliente buscaClienteMatricula(Long matricula){
-        return clienteFacade.buscar(matricula);
-    }
-   
-    public Livro buscaLivroID(Long id){
-        return livroFacade.buscar(id);
+        FacesContext contexto = FacesContext.getCurrentInstance();
+        //RetiradasMB retiradasMB = (RetiradasMB) contexto.getExternalContext().getApplicationMap().get("RetiradasMB");
+        if (!pesquisa.isEmpty()) {
+            Livro l = this.livroSelecionado;
+            Cliente c = buscaClienteMat(this.getMatriculaCliente());
+            l.setDisponivel(false);
+            l.setRetiradas(l.getRetiradas() + 1);
+            l.setDataLiberacao(dataLiberacao);
+            c.setRetiradas(c.getRetiradas() + 1);
+            retiradaSelecionada.setCliente(c);
+            retiradaSelecionada.setLivro(l);
+            retiradaSelecionada.setDataRetirada(dataAtual);
+            retiradaSelecionada.setDataDevolucao(periodoEmprestimo);
+            livroFacade.salvar(l);
+            clienteFacade.salvar(c);
+            retiradaFacade.salvar(retiradaSelecionada);
+            limparPesquisa(pesquisaSelecionada);
+            this.novaRetirada();
+            return ("/admin/retiradas/confirmaRetirada?faces-redirect=true");
+        }
+        FacesMessage mensagemRet = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                "Erro!", "É necessario pesquisar antes!");
+        contexto.addMessage("idMensagem", mensagemRet);
+        return ("/admin/retiradas/retirada?faces-redirect=true");
     }
     
-    public List<Livro> getLivrosDisponiveis(){
+    public String adicionarRetiradaUsuario() {
+        FacesContext contextoRet = FacesContext.getCurrentInstance();
+        //RetiradasMB retiradasMB = (RetiradasMB) contextoRet.getExternalContext().getApplicationMap().get("RetiradasMB");
+        if (!pesquisa.isEmpty()) {
+            Livro l = this.livroSelecionado;
+            Cliente c = buscaClienteMat(this.getMatriculaCliente());
+            l.setDisponivel(false);
+            l.setRetiradas(l.getRetiradas() + 1);
+            l.setDataLiberacao(dataLiberacao);
+            c.setRetiradas(c.getRetiradas() + 1);
+            retiradaSelecionada.setCliente(c);
+            retiradaSelecionada.setLivro(l);
+            retiradaSelecionada.setDataRetirada(dataAtual);
+            retiradaSelecionada.setDataDevolucao(periodoEmprestimo);
+            livroFacade.salvar(l);
+            clienteFacade.salvar(c);
+            retiradaFacade.salvar(retiradaSelecionada);
+            limparPesquisa(pesquisaSelecionada);
+            this.novaRetirada();
+            return ("/usuario/retiradas/confirmaRetirada?faces-redirect=true");
+        }
+        FacesMessage mensagemRet = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                "Erro!", "É necessario pesquisar antes!");
+        contextoRet.addMessage("idMensagemRet", mensagemRet);
+        return ("/usuario/retiradas/retirada?faces-redirect=true");
+    }
+
+    public Cliente buscaClienteMat(Long mat) {
+        return clienteFacade.buscar(mat);
+    }
+
+    public Livro buscaLivroID(Long id) {
+        return livroFacade.buscar(id);
+    }
+
+    public List<Livro> getLivrosDisponiveis() {
         List<Livro> disponiveis = new ArrayList<>();
-        for(Livro l : this.livroFacade.listar()){
-            if(l.isDisponivel()){
+        for (Livro l : this.livroController.getListaLivros()) {
+            if (l.isDisponivel()) {
                 disponiveis.add(l);
             }
         }
         return disponiveis;
     }
-    
-    public String formataData(Date data){
+
+    public String formataData(Date data) {
         this.dtFormatada = dateToString(data);
         return this.dtFormatada;
     }
 
     public String editarRetirada(Retiradas u) {
         retiradaSelecionada = u;
-        return ("/admin/edicaoUsuarios?faces-redirect=true"); 
+        return ("/admin/retiradas/edicaoUsuarios?faces-redirect=true");
     }
 
     public String atualizarRetirada() {
@@ -158,11 +266,31 @@ public class RetiradasController implements Serializable {
         retiradaFacade.remover(retirada);
     }
     
-    public Livro buscarLivroPorNome(String nome){
-        for(Livro l: getLivrosDisponiveis())
-            if(l.getNome().equals(nome))
-                return l;
-        return null;
+    public String mostrarRetiradas(){        
+        return("/admin/relatorios/listaRetiradas?faces-redirect=true");
+    }
+    
+    public String mostrarRetiradasUsuario(){        
+        return("/usuario/relatorios/listaRetiradas?faces-redirect=true");
     }
 
+    public Livro buscarLivroPorNome(String nome) {
+        for (Livro l : getLivrosDisponiveis()) {
+            if (l.getNome().equals(nome)) {
+                return l;
+            }
+        }
+        return null;
+    }
+    
+    public String getAtrasadoString(Retiradas r){
+        if(r.getDataDevolucao().before(dataAtual)) return "Sim";
+        else return "Não";
+    }
+    
+    public String getLabel(Retiradas r){
+        if(r.getDataDevolucao().before(dataAtual)) return "label-danger";
+        else return "label-success";
+    }
+    
 }

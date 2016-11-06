@@ -19,7 +19,7 @@
                                 <f:facet name="header">
                                     <h:outputText value="ISBN" />
                                 </f:facet>
-                                <h:outputText id="idIsbn" value="#{livro.isbn}" />
+                                <h:outputText id="idIsbn" value="#{livro.isbn}"  style="margin-left: 20px" />
                             </h:column>
                             <h:column>
                                 <f:facet name="header">
@@ -40,24 +40,22 @@
                                 <h:outputText id="idEditora" value="#{livro.editora}" />
                             </h:column>
                             <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Ano" />
+                                 <f:facet name="header">
+                                    <h:outputText value="Disponível" />
                                 </f:facet>
-                                <h:outputText id="idAno" value="#{livro.ano}" />
+                                <span style="margin-left: 17px; padding-top: 7px; padding-bottom: 7px; padding-left: 12px; padding-right: 12px" Class="label #{livro.label}">#{livro.disponivelString}</span>
                             </h:column>
                             <h:column >
                                 <f:facet name="header">
-                                    <h:outputText value="Operacao" style="padding-left: 0" />
+                                    <h:outputText value="Operação" style="margin-left: 30px" />
                                 </f:facet>
                                 <h:commandLink value="Editar " action="#{livroController.editarLivro(livro)}"/>
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <h:commandLink onclick="funcaoDeletarUsuario()" id="remover" value="Remover" action="#{livroController.removerLivro(livro)}"/>
                             </h:column>
                         </h:dataTable>
-                        <h:button value="Voltar" style="align: right; width: 120px; margin-right: 5px" styleClass="btn btn-primary" outcome="/admin/relatorios"/>
+                        <h:button value="Voltar" style="align: right; width: 120px; margin-right: 5px" styleClass="btn btn-primary" outcome="/admin/index"/>
                     </h:form>                      
                 </div>
             </ui:define>
         </ui:composition>
-    </h:body>
-</html>

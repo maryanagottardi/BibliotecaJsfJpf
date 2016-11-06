@@ -4,22 +4,25 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">    
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <meta charset="utf-8"></meta>
+    </h:head>
     <h:body>
         <ui:composition template="/template.xhtml">
             <ui:define name="top"></ui:define>
             <ui:define name="content">
-                <div class="tabelaUsuarios">
+                <div class="tabelaUsuarios"> 
                     <h:form>
-                        <h:dataTable var="livro" value="#{livroController.listaLivro}" styleClass="table table-striped" >
+                        <h:dataTable var="livro" value="#{livroController.disponiveis}" styleClass="table table-striped" >
                             <f:facet name="header">
-                                <h:outputText value="Lista de Livros" style="font-size: 20px" />
-                            </f:facet>                            
+                                <h:outputText value="Livros Disponíveis:" style="font-size: 18px; padding-left: 12px" />
+                            </f:facet>
                             <h:column>
                                 <f:facet name="header">
-                                    <h:outputText value="ISBN" />
+                                    <h:outputText style="margin-left: 40px" value="ISBN" />
                                 </f:facet>
-                                <h:outputText id="idIsbn" value="#{livro.isbn}"  style="margin-left: 20px" />
+                                <h:outputText id="idIsbn" style="margin-left: 40px" value="#{livro.isbn}" />
                             </h:column>
                             <h:column>
                                 <f:facet name="header">
@@ -40,22 +43,16 @@
                                 <h:outputText id="idEditora" value="#{livro.editora}" />
                             </h:column>
                             <h:column>
-                                 <f:facet name="header">
-                                    <h:outputText value="Disponível" />
-                                </f:facet>
-                                <span style="margin-left: 17px; padding-top: 7px; padding-bottom: 7px; padding-left: 12px; padding-right: 12px" Class="label #{livro.label}">#{livro.disponivelString}</span>
-                            </h:column>
-                            <h:column >
                                 <f:facet name="header">
-                                    <h:outputText value="Operação" style="margin-left: 30px" />
+                                    <h:outputText value="Ano" />
                                 </f:facet>
-                                <h:commandLink value="Editar " action="#{livroController.editarLivro(livro)}"/>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <h:commandLink onclick="funcaoDeletarUsuario()" id="remover" value="Remover" action="#{livroController.removerLivro(livro)}"/>
+                                <h:outputText id="idAno" value="#{livro.ano}" />
                             </h:column>
                         </h:dataTable>
-                        <h:button value="Voltar" style="align: right; width: 120px; margin-right: 5px" styleClass="btn btn-primary" outcome="/admin/index"/>
-                    </h:form>                      
+                        <h:button value="Voltar" style="align: right; width: 120px; margin-right: 5px" styleClass="btn btn-primary" outcome="/admin/relatorios"/>
+                    </h:form>
                 </div>
             </ui:define>
         </ui:composition>
+    </h:body>
+</html>

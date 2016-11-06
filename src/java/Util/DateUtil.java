@@ -1,10 +1,6 @@
 
 package Util;
 
-/**
- *
- * @author mari
- */
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -56,4 +52,3 @@ public class DateUtil {
        return(data.matches("\\d{2}/\\d{2}/\\d{4} \\d{2}:\\d{2}"));
     }
 }
-

@@ -5,9 +5,11 @@
  */
 package session;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import model.Cliente;
 
 /**
@@ -34,5 +36,26 @@ public class ClienteFacade extends AbstractFacade<Cliente> {
         }
         else
             super.atualizar(u);
+    }
+       public List<Cliente> buscarPorNome(String nome) {
+        Query query = manager.createQuery("SELECT p FROM Cliente p WHERE  LOWER(p.nome) LIKE :nome");
+        query.setParameter("nome", "%"+nome.toLowerCase()+"%");
+        return query.getResultList();
+    }
+    
+    public List<Cliente> topQueRetiram() {
+        String jpql = "SELECT p FROM Cliente p WHERE p.retiradas > 1 "
+                + "ORDER BY p.retiradas DESC";   
+        Query query = manager.createQuery(jpql);
+        query.setMaxResults(3);
+        return query.getResultList();
+    }
+    
+    public List<Cliente> topQueAtrasam() {
+        String jpql = "SELECT p FROM Cliente p WHERE p.atrasos > 1 "
+                + "ORDER BY p.atrasos DESC";   
+        Query query = manager.createQuery(jpql);
+        query.setMaxResults(3);
+        return query.getResultList();
     }
 }

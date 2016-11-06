@@ -1,31 +1,32 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package model;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 /**
  *
  * @author mari
  */
 @Entity
 public class Livro implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private static int CODIGO_GERADO = 1;
     private String isbn, nome, autor, editora, ano;
-    //private Date ano;
     private int retiradas;
-    private boolean disponivel = true;  
-    
+    private boolean disponivel = true;
+    @Temporal (value=TemporalType.DATE)
+    private Date dataLiberacao = new Date(System.currentTimeMillis()); 
+
     public Long getId() {
         return id;
     }
@@ -35,45 +36,16 @@ public class Livro implements Serializable {
     }
     
     /**
-     * Construtor para inicializar cliente
-     *
-     * @param matricula identifica a matrÃ­cula de uma pessoa.
-     * @param nome identifica o nome de uma pessoa.
-     * @param telefone identifica telefone de uma pessoa.
-     *
-     */
-    /**
      * Construtor para inicializar livro
-     *
-     * @param isbn identifica o ISBN de um livro.
-     * @param nome identifica o nome de um livro.
-     * @param autor identifica o autor de um livro.
-     * @param editora identifica a editora de um livro.
-     * @param ano identifica o ano de publicaÃ§Ã£o de um livro.
-     *
-     */
-    
-    
-    public Livro(String isbn, String nome, String autor, String editora, String ano) {
-        this.isbn = isbn;
-        this.nome = nome;
-        this.autor = autor;
-        this.editora = editora;        
-        this.ano = ano;
-    }
-    
-    public Livro(String nome, String autor, String editora, String ano) {
-        this.nome = nome;
-        this.autor = autor;
-        this.editora = editora;        
-        this.ano = ano;
-    }
-    
-    public Livro() {
+     */        
+    public Livro(){
         
     }
 
-   
+    /**
+     * Retorna codigo do menu
+    
+     */
     public static int getCODIGO_GERADO() {
         return CODIGO_GERADO;
     }
@@ -99,18 +71,16 @@ public class Livro implements Serializable {
     }
 
     /**
-     * Retorna o nome
-     *
-     * @return nome de um livro
+     * Retorna o nome do livro
+    
      */
     public String getNome() {
         return nome;
     }
 
     /**
-     * Retorna o autor
-     *
-     * @return o autor de um livro
+     * Retorna o autor do livro
+   
      */
     public String getAutor() {
         return autor;
@@ -118,31 +88,28 @@ public class Livro implements Serializable {
 
     /**
      * Retorna a editora
-     *
-     * @return a editora de um livro
+    
      */
     public String getEditora() {
         return editora;
     }
 
     /**
-     * Retorna a matrÃ­cula
-     *
-     * @return matrÃ­cula de uma pessoa
+     * Retorna a matricula da pessoa
+     
      */
     public String getIsbn() {
         return isbn;
     }
 
     /**
-     * Retorna o ISBN
-     *
-     * @return o ISBN de um livro
+     * Retorna o ISBN do livro
+     
      */
     public String getAno() {
         return ano;
     }
-
+    
     public boolean isDisponivel() {
         return disponivel;
     }
@@ -150,6 +117,29 @@ public class Livro implements Serializable {
     public void setDisponivel(boolean disponivel) {
         this.disponivel = disponivel;
     }
+
+    public Date getDataLiberacao() {
+        return dataLiberacao;
+    }
+
+    public void setDataLiberacao(Date dataLiberacao) {
+        this.dataLiberacao = dataLiberacao;
+    }
+    
+    public String getDisponivelString(){
+        if(disponivel) return "Sim";
+        else return "Não";
+    }
+    
+    public String getLabel(){
+        if(disponivel)return "label-success";
+        else return "label-danger";
+    }
+
+    /**
+     * Retorna o codigo gerado para o menu
+    
+     */
     private int generateCodigo() {
         return (CODIGO_GERADO++);
     }
@@ -170,7 +160,7 @@ public class Livro implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
+       
         if (!(object instanceof Livro)) {
             return false;
         }
@@ -180,5 +170,4 @@ public class Livro implements Serializable {
         }
         return true;
     }
-
 }

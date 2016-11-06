@@ -11,6 +11,7 @@
             <ui:define name="content">
                 <div class="tituloLivros">Adicionar Livro</div>
                 <div class="cadastroLivros">
+                      <f:event listener="#{livroController.novoLivro()}" type="preRenderView"/> 
                     <h:form>
                         <h:panelGrid columns="2" >
                             <h:outputLabel for="idIsbn" value="Isbn" style="font-weight: normal"/>
@@ -25,7 +26,7 @@
                             <h:inputText id="idAno" required="true" requiredMessage="Erro! Campo 'Ano' vazio!" a:placeholder="Campo obrigatório" style="width: 280px; margin-left: 30px; margin-top: 6px" styleClass="form-control" value="#{livroController.livroSelecionado.ano}" />
                         </h:panelGrid>
                         <div class="botaoCadastroClientes">
-                            <h:commandButton value="Cadastrar" style="width: auto; " styleClass="btn btn-primary" action="#{livroMB.adicionarLivro()}"/>
+                            <h:commandButton value="Cadastrar" style="width: auto; " styleClass="btn btn-primary" action="#{livroController.adicionarLivro()}"/>
                             <h:button value="Voltar" style="width: auto; margin-left: 5px" styleClass="btn btn-primary" outcome="/admin/index"/>
                         </div>
                     </h:form>
