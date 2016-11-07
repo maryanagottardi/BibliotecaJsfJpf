@@ -133,12 +133,12 @@ public class RetiradasController implements Serializable {
 
     public String novaRetirada() {
         retiradaSelecionada = new Retiradas();
-        return ("/admin/retiradas/retirada?faces-redirect=true");
+        return ("/admin/retirada?faces-redirect=true");
     }
 
     public String novaRetiradaUsuario() {
         retiradaSelecionada = new Retiradas();
-        return ("/usuario/retiradas/retirada?faces-redirect=true");
+        return ("/usuario/retirada?faces-redirect=true");
     }
     
     public String adicionarPesquisa() {
@@ -157,7 +157,7 @@ public class RetiradasController implements Serializable {
                 "Erro!", "Cliente não encontrado!");
             contexto.addMessage("idMensagem", mensagemRet);
         }
-        return ("/admin/retiradas/validacaoCiente?faces-redirect=true");        
+        return ("/admin/validacaoCiente?faces-redirect=true");        
     }
     
     public String adicionarPesquisaUsuario() {
@@ -194,12 +194,12 @@ public class RetiradasController implements Serializable {
             retiradaFacade.salvar(retiradaSelecionada);
             limparPesquisa(pesquisaSelecionada);
             this.novaRetirada();
-            return ("/admin/retiradas/confirmaRetirada?faces-redirect=true");
+            return ("/admin/confirmaRetirada?faces-redirect=true");
         }
         FacesMessage mensagemRet = new FacesMessage(FacesMessage.SEVERITY_ERROR,
                 "Erro!", "É necessario pesquisar antes!");
         contexto.addMessage("idMensagem", mensagemRet);
-        return ("/admin/retiradas/retirada?faces-redirect=true");
+        return ("/admin/retirada?faces-redirect=true");
     }
     
     public String adicionarRetiradaUsuario() {
@@ -221,12 +221,12 @@ public class RetiradasController implements Serializable {
             retiradaFacade.salvar(retiradaSelecionada);
             limparPesquisa(pesquisaSelecionada);
             this.novaRetirada();
-            return ("/usuario/retiradas/confirmaRetirada?faces-redirect=true");
+            return ("/usuario/confirmaRetirada?faces-redirect=true");
         }
         FacesMessage mensagemRet = new FacesMessage(FacesMessage.SEVERITY_ERROR,
                 "Erro!", "É necessario pesquisar antes!");
         contextoRet.addMessage("idMensagemRet", mensagemRet);
-        return ("/usuario/retiradas/retirada?faces-redirect=true");
+        return ("/usuario/retirada?faces-redirect=true");
     }
 
     public Cliente buscaClienteMat(Long mat) {
@@ -254,7 +254,7 @@ public class RetiradasController implements Serializable {
 
     public String editarRetirada(Retiradas u) {
         retiradaSelecionada = u;
-        return ("/admin/retiradas/edicaoUsuarios?faces-redirect=true");
+        return ("/admin/edicaoUsuarios?faces-redirect=true");
     }
 
     public String atualizarRetirada() {
@@ -267,11 +267,11 @@ public class RetiradasController implements Serializable {
     }
     
     public String mostrarRetiradas(){        
-        return("/admin/relatorios/listaRetiradas?faces-redirect=true");
+        return("/admin/listaRetiradas?faces-redirect=true");
     }
     
     public String mostrarRetiradasUsuario(){        
-        return("/usuario/relatorios/listaRetiradas?faces-redirect=true");
+        return("/usuario/listaRetiradas?faces-redirect=true");
     }
 
     public Livro buscarLivroPorNome(String nome) {

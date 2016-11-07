@@ -148,12 +148,12 @@ public class LivroController implements Serializable {
     
     public String adicionarPesquisa() {
         pesquisaTitulo = buscarLivroTitulo(this.tituloBusca); 
-        return ("/admin/livros/buscaLivros?faces-redirect=true");
+        return ("/admin/buscaLivros?faces-redirect=true");
     }
     
     public String adicionarPesquisaUsuario() {
         pesquisaTitulo = buscarLivroTitulo(this.tituloBusca); 
-        return ("/usuario/livros/buscaLivros?faces-redirect=true");
+        return ("/usuario/buscaLivros?faces-redirect=true");
     }
     
     public List<Livro> buscarLivroTitulo(String titulo){
@@ -162,22 +162,22 @@ public class LivroController implements Serializable {
     
     public String livrosMaisRetirados(){
         maisRetirados = this.livroFacade.maisRetirados();
-        return("/admin/relatorios/livrosMaisRetirados?faces-redirect=true");
+        return("/admin/livrosMaisRetirados?faces-redirect=true");
     }
     
     public String livrosMaisRetiradosUsuario(){
         maisRetirados = this.livroFacade.maisRetirados();
-        return("/usuario/relatorios/livrosMaisRetirados?faces-redirect=true");
+        return("/usuario/livrosMaisRetirados?faces-redirect=true");
     }
     
     public String livrosDisponiveis(){
         disponiveis = this.livroFacade.disponiveis();
-        return("/admin/relatorios/livrosDisponiveis?faces-redirect=true");
+        return("/admin/livrosDisponiveis?faces-redirect=true");
     }
     
     public String livrosDisponiveisUsuario(){
         disponiveis = this.livroFacade.disponiveis();
-        return("/usuario/relatorios/livrosDisponiveis?faces-redirect=true");
+        return("/usuario/livrosDisponiveis?faces-redirect=true");
     }
         
 }

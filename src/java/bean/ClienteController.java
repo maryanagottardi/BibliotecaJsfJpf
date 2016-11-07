@@ -130,17 +130,17 @@ public class ClienteController implements Serializable {
     
     public String adicionarPesquisa() {
         pesquisaNome = buscarCliente(this.nomeBusca); 
-        return ("/admin/clientes/buscaCliente?faces-redirect=true");
+        return ("/admin/buscaCliente?faces-redirect=true");
     }
     
     public String adicionarPesquisaRetirada() {
         pesquisaNome = buscarCliente(this.nomeBusca); 
-        return ("/admin/retiradas/buscaCliente?faces-redirect=true");
+        return ("/admin/buscaCliente?faces-redirect=true");
     }
     
     public String adicionarPesquisaUsuario() {
         pesquisaNome = buscarCliente(this.nomeBusca); 
-        return ("/usuario/clientes/buscaCliente?faces-redirect=true");
+        return ("/usuario/buscaCliente?faces-redirect=true");
     }
     /*
     public void removerCliente(Cliente cliente){
@@ -161,22 +161,22 @@ public class ClienteController implements Serializable {
     
     public String clientesMaisRetiram(){
         maisRetiram = this.clienteFacade.topQueRetiram();
-        return("/admin/relatorios/clientesMaisRetiram?faces-redirect=true");
+        return("/admin/clientesMaisRetiram?faces-redirect=true");
     }
     
     public String clientesMaisRetiramUsuario(){
         maisRetiram = this.clienteFacade.topQueRetiram();
-        return("/usuario/relatorios/clientesMaisRetiram?faces-redirect=true");
+        return("/usuario/clientesMaisRetiram?faces-redirect=true");
     }
     
     public String clientesMaisAtrasam(){
         maisAtrasam = this.clienteFacade.topQueAtrasam();
-        return("/admin/relatorios/clientesMaisAtrasam?faces-redirect=true");
+        return("/admin/clientesMaisAtrasam?faces-redirect=true");
     }
     
     public String clientesMaisAtrasamUsuario(){
         maisAtrasam = this.clienteFacade.topQueAtrasam();
-        return("/usuario/relatorios/clientesMaisAtrasam?faces-redirect=true");
+        return("/usuario/clientesMaisAtrasam?faces-redirect=true");
     }
     
 }

@@ -124,12 +124,12 @@ public class DevolucaoController implements Serializable {
 
     public String novaDevolucao() {
         devolucaoSelecionada = new Devolucao();
-        return ("/admin/devolucao/devolucao?faces-redirect=true");
+        return ("/admin/devolucao?faces-redirect=true");
     }
 
     public String novaDevolucaoUsuario() {
         devolucaoSelecionada = new Devolucao();
-        return ("/usuario/devolucao/devolucao?faces-redirect=true");
+        return ("/usuario/devolucao?faces-redirect=true");
     }
 
     public String adicionarDevolucao(Retiradas retirada) {
@@ -148,11 +148,11 @@ public class DevolucaoController implements Serializable {
     }
 
     public String mostrarDevolucao(){        
-        return("/admin/relatorios/listaDevolucao?faces-redirect=true");
+        return("/admin/listaDevolucao?faces-redirect=true");
     }
     
     public String mostrarDevolucaoUsuario(){        
-        return("/usuario/relatorios/listaDevolucao?faces-redirect=true");
+        return("/usuario/listaDevolucao?faces-redirect=true");
     }
 
     public void removerDevolucao(Devolucao devolucao) {
